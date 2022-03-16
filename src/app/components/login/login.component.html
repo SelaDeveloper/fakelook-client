@@ -1,0 +1,36 @@
+<div class="display-center full-width">
+  <form [formGroup]="loginForm" (ngSubmit)="submitPost()">
+    <div class="display-center"><h2>Login</h2></div>
+    <label for="userName">UserName</label>
+    <input formControlName="userName" type="text" id="userName" />
+    <div
+      class="error"
+      *ngIf="
+        loginForm.controls['userName'].touched &&
+        loginForm.controls['userName'].invalid
+      "
+    >
+      userName not valid
+    </div>
+
+    <label for="password">Password</label>
+    <input formControlName="password" type="password" id="password" />
+    <div
+      class="error"
+      *ngIf="
+        loginForm.controls['password'].touched &&
+        loginForm.controls['password'].invalid
+      "
+    >
+      password not valid
+    </div>
+    <div class="display-center">
+      <a [routerLink]="['/SignUp']">SignUp</a>
+    </div>
+    <div class="display-center">
+      <button type="submit" class="btn" [disabled]="!loginForm.valid">
+        Login
+      </button>
+    </div>
+  </form>
+</div>

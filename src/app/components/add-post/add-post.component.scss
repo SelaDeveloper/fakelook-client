@@ -1,0 +1,219 @@
+.post-container {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  height: 100%;
+  width: 80vh;
+  padding: 15px 15px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 16px 24px 2px rgba(33, 37, 41, 0.02),
+    0 6px 30px 5px rgba(33, 37, 41, 0.04), 0 8px 10px -5px rgba(33, 37, 41, 0.1);
+  word-wrap: break-word;
+  transition: 0.5s;
+}
+
+.post-container:hover {
+  box-shadow: 2px 2px 2px 0px grey;
+}
+
+h2 {
+  text-align: center;
+}
+
+.add-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-element {
+  margin: 5px;
+  font-weight: bold;
+  text-align: left;
+}
+
+input {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid black;
+  border-radius: 0px;
+}
+
+.ref {
+  display: none;
+}
+
+.backdrop {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 50;
+  text-align: center;
+}
+
+.alert-box {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  font-weight: bold;
+  text-align: center;
+  color: red;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30vw;
+  padding: 40px;
+  background: #e8e8e8;
+  box-shadow: inset 0 0 30px black;
+  border-radius: 5px;
+  z-index: 100;
+}
+
+.text-right {
+  margin-top: 50px;
+  justify-content: right;
+}
+
+.btn-close {
+  background-color: #959da5;
+  border-radius: 100px;
+  box-shadow: rgba(96, 102, 98, 0.2) 0 -25px 18px -14px inset,
+    rgba(66, 78, 71, 0.15) 0 1px 2px, rgba(65, 82, 72, 0.15) 0 2px 4px,
+    rgba(55, 68, 60, 0.15) 0 4px 8px, rgba(44, 187, 99, 0.15) 0 8px 16px,
+    rgba(44, 187, 99, 0.15) 0 16px 32px;
+  color: grey;
+  cursor: pointer;
+  font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+  padding: 10px 30px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 250ms;
+  border: 0;
+  font-size: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.btn-close:hover {
+  box-shadow: rgba(43, 48, 45, 0.35) 0 -25px 18px -14px inset,
+    rgba(35, 41, 37, 0.25) 0 1px 2px, rgba(52, 68, 58, 0.25) 0 2px 4px,
+    rgba(44, 187, 99, 0.25) 0 4px 8px, rgba(93, 109, 99, 0.25) 0 8px 16px,
+    rgba(71, 92, 79, 0.25) 0 16px 32px;
+  transform: scale(1.05) rotate(-1deg);
+}
+
+.btn-place {
+  display: flex;
+  justify-content: right;
+  margin-top: 10px;
+}
+
+.btn-style {
+  font-weight: bold;
+  align-items: center;
+  appearance: none;
+  background-color: #fcfcfd;
+  border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #36395a;
+  cursor: pointer;
+  font-family: "JetBrains Mono", monospace;
+  height: 48px;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow 0.15s, transform 0.15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow, transform;
+  font-size: 18px;
+}
+
+.btn-style:focus {
+  box-shadow: #d6d6e7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+}
+
+.btn-style:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.btn-style:active {
+  box-shadow: #d6d6e7 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
+.button-4 {
+  margin-left: 10px;
+  appearance: none;
+  background-color: #fafbfc;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,
+    rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  box-sizing: border-box;
+  color: #24292e;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  list-style: none;
+  padding: 6px 16px;
+  position: relative;
+  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  word-wrap: break-word;
+}
+
+.button-4:hover {
+  background-color: #f3f4f6;
+  text-decoration: none;
+  transition-duration: 0.1s;
+}
+
+.button-4:disabled {
+  background-color: #fafbfc;
+  border-color: rgba(27, 31, 35, 0.15);
+  color: #959da5;
+  cursor: default;
+}
+
+.button-4:active {
+  background-color: #edeff2;
+  box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+  transition: none 0s;
+}
+
+.button-4:focus {
+  outline: 1px transparent;
+}
+
+.button-4:before {
+  display: none;
+}
+
+.button-4:-webkit-details-marker {
+  display: none;
+}

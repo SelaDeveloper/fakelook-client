@@ -1,0 +1,79 @@
+<div class="post-container">
+  <div class="add-body">
+    <h2>Add Post</h2>
+
+    <div class="post-element">
+      <!-- <label  for="name">Name: </label> -->
+      <input type="text" placeholder="Comments" [(ngModel)]="description" />
+    </div>
+
+    <div class="post-element">
+      <!-- <label class="student-element" for="age">Age: </label> -->
+      <input type="number" placeholder="x_position" [(ngModel)]="x_position" />
+    </div>
+
+    <div class="post-element">
+      <!-- <label class="student-element" for="age">Age: </label> -->
+      <input type="number" placeholder="y_position" [(ngModel)]="y_position" />
+    </div>
+
+    <div class="post-element">
+      <!-- <label class="student-element" for="age">Age: </label> -->
+      <input type="number" placeholder="z_position" [(ngModel)]="z_position" />
+    </div>
+
+    <div class="post-element">
+      <!-- <label class="student-element" for="age">Age: </label> -->
+      <input type="date" placeholder="date" [(ngModel)]="date" />
+    </div>
+
+    <div class="post-element">
+      <!-- <label class="student-element" for="id">ID: </label> -->
+      <input type="text" placeholder="comments" [(ngModel)]="comments" />
+    </div>
+
+    <div class="post-element">
+      <!-- <label class="student-element" for="id">ID: </label> -->
+      <input type="text" placeholder="userName" [(ngModel)]="userName" />
+    </div>
+
+    <div class="post-element">
+      <!-- <label class="student-element" for="id">ID: </label> -->
+      <input type="text" placeholder="hashTag" [(ngModel)]="hashTag" />
+    </div>
+
+    <div class="post-element">
+      <!-- <label class="student-element" for="id">ID: </label> -->
+      <input type="text" placeholder="userTag" [(ngModel)]="userTag" />
+    </div>
+
+    <div class="post-element">
+      <!-- <label class="student-element" for="picture">URL for photo: </label> -->
+      <input type="text" placeholder="URL" [(ngModel)]="img" />
+      <span> OR</span>
+      <input
+        #fileInput
+        [ngStyle]="{ display: 'none' }"
+        type="file"
+        accept="image/*"
+        (change)="onFileSelected($event)"
+      />
+      <button class="button-4" (click)="fileInput.click()">
+        Choose picture
+      </button>
+    </div>
+
+    <div class="btn-place">
+      <button class="btn-style" (click)="addPost()">Add post</button>
+    </div>
+  </div>
+</div>
+
+<div #dialogAlarm class="ref">
+  <div class="alert-box">
+    <div>{{ errorAlarm }}</div>
+    <div class="text-right">
+      <button type="button" class="btn-close" (click)="closeDialog()"></button>
+    </div>
+  </div>
+</div>

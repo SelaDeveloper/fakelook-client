@@ -1,0 +1,16 @@
+<div class="fakelook-container">
+  <h1>FakeLook</h1>
+
+  <div class="add-post-container">
+    <app-add-post (onAddPost)="updatePostsList($event)"></app-add-post>
+  </div>
+
+  <div class="posts-profile">
+    <app-post
+      *ngFor="let post of posts"
+      [postItem]="post"
+      (onDeletePost)="deletePost($event)"
+    >
+    </app-post>
+  </div>
+</div>

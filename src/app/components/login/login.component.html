@@ -1,36 +1,48 @@
 <div class="display-center full-width">
-  <form [formGroup]="loginForm" (ngSubmit)="submitPost()">
-    <div class="display-center"><h2>Login</h2></div>
-    <label for="userName">UserName</label>
-    <input formControlName="userName" type="text" id="userName" />
-    <div
-      class="error"
-      *ngIf="
-        loginForm.controls['userName'].touched &&
-        loginForm.controls['userName'].invalid
-      "
-    >
-      userName not valid
-    </div>
+  <div class="card">
+    <h2 class="card-header">Login</h2>
+    <div class="card-body">
+      <form [formGroup]="loginForm" (ngSubmit)="submitPost()">
+        <label for="userName">UserName</label>
+        <input formControlName="userName" type="text" id="userName" />
+        <div
+          class="error"
+          *ngIf="
+            loginForm.controls['userName'].touched &&
+            loginForm.controls['userName'].invalid
+          "
+        >
+          userName not valid
+        </div>
 
-    <label for="password">Password</label>
-    <input formControlName="password" type="password" id="password" />
-    <div
-      class="error"
-      *ngIf="
-        loginForm.controls['password'].touched &&
-        loginForm.controls['password'].invalid
-      "
-    >
-      password not valid
+        <label for="password">Password</label>
+        <input formControlName="password" type="password" id="password" />
+        <div
+          class="error"
+          *ngIf="
+            loginForm.controls['password'].touched &&
+            loginForm.controls['password'].invalid
+          "
+        >
+          password not valid
+        </div>
+
+        <div>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!loginForm.valid"
+          >
+            Login
+          </button>
+          <a class="space1" [routerLink]="['/SignUp']">Forgot password?</a>
+        </div>
+
+        <div>
+          Not yet a member?
+          <a class="space2" [routerLink]="['/SignUp']">Sign up</a>
+        </div>
+      </form>
     </div>
-    <div class="display-center">
-      <a [routerLink]="['/SignUp']">SignUp</a>
-    </div>
-    <div class="display-center">
-      <button type="submit" class="btn" [disabled]="!loginForm.valid">
-        Login
-      </button>
-    </div>
-  </form>
+  </div>
 </div>

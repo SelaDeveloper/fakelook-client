@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddPostComponent } from './components/add-post/add-post.component';
+import { FakelookComponent } from './components/fakelook/fakelook.component';
 import { LoginComponent } from './components/login/login.component';
 import { SecretComponent } from './components/secret/secret.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
@@ -14,8 +15,8 @@ const routes: Routes = [
   },
   { path: `SignUp`, component: SignUpComponent },
   { path: `Login`, component: LoginComponent },
-  { path: `Add-Post`, component: AddPostComponent },
-  { path: ``, component: LoginComponent }, //LoginComponent AddPostComponent
+  { path: `FakeLook`, component: FakelookComponent },
+  { path: ``, component: LoginComponent },
   { path: `**`, component: LoginComponent },
 ];
 

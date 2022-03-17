@@ -1,0 +1,37 @@
+<div class="post-container">
+  <div>
+    <div class="btn-x">
+      <button class="button-42" (click)="deletePost()">X</button>
+    </div>
+    <span class="post-element">Comment: {{ post.description }}</span>
+  </div>
+  <div>
+    <span class="post-element">x_position: {{ post.x_position }}</span>
+  </div>
+  <div>
+    <span class="post-element">y_position: {{ post.y_position }}</span>
+  </div>
+  <div>
+    <span class="post-element">z_position: {{ post.z_position }}</span>
+  </div>
+  <div>
+    <span class="post-element">Date: {{ post.date }}</span>
+  </div>
+  <div>
+    <img class="post-element-img" src="{{ post.img }}" />
+  </div>
+
+  <hr />
+
+  <div #dialogAlarm class="ref">
+    <div class="alert-box">
+      <div>{{ errorAlarm }}</div>
+      <div class="btn-container">
+        <button type="button" class="button-29" (click)="yesAnswer()">
+          Yes
+        </button>
+        <button type="button" class="button-29" (click)="noAnswer()">No</button>
+      </div>
+    </div>
+  </div>
+</div>

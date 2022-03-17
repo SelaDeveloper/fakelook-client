@@ -10,6 +10,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
   constructor(private authService: AuthService) {}
+
   loginForm = new FormGroup({
     userName: new FormControl('', [
       Validators.required,

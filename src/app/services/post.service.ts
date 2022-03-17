@@ -28,9 +28,6 @@ export class PostService {
     let httpOption = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-    return this.http.delete<IPost>(
-      this.postUrl + '/' + post.description,
-      httpOption
-    );
+    return this.http.delete<IPost>(this.postUrl + '/' + post.id, httpOption);
   }
 }

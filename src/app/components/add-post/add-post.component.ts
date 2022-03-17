@@ -1,4 +1,10 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { IPost } from 'src/app/models/IPost';
 import { AuthService } from 'src/app/services/auth.service';
 import { PostService } from 'src/app/services/post.service';
@@ -13,6 +19,8 @@ export class AddPostComponent {
     private postService: PostService,
     private authService: AuthService
   ) {}
+
+  @Output('onAddPost') postEmitter = new EventEmitter<IPost>();
 
   @ViewChild('dialogAlarm') dialogAlarm!: ElementRef;
   @ViewChild('fileInput') fileInput!: ElementRef;

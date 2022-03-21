@@ -1,71 +1,51 @@
 <div class="post-container">
-  <div class="add-body">
-    <h2>Publish new post</h2>
+  <h2>Publish new post</h2>
 
-    <div class="post-element">
-      <!-- <label  for="name">Name: </label> -->
-      <input type="text" placeholder="description" [(ngModel)]="description" />
-    </div>
+  <div class="post-element">
+    <mat-form-field class="example-full-width" appearance="legacy">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        placeholder="What's on your mind?"
+        [(ngModel)]="description"
+      ></textarea>
+    </mat-form-field>
+  </div>
 
-    <div class="post-element">
-      <!-- <label class="student-element" for="age">Age: </label> -->
-      <input type="number" placeholder="x_position" [(ngModel)]="x_position" />
-    </div>
+  <div class="img-element">
+    <img src="/assets/preview2.png" alt="" *ngIf="imgActive" />
+    <img src="{{ urlFile }}" [(ngModel)]="urlFile" alt="" *ngIf="!imgActive" />
+  </div>
 
-    <div class="post-element">
-      <!-- <label class="student-element" for="age">Age: </label> -->
-      <input type="number" placeholder="y_position" [(ngModel)]="y_position" />
-    </div>
+  <div class="post-element">
+    <input
+      #fileInput
+      [ngStyle]="{ display: 'none' }"
+      type="file"
+      accept="image/*"
+      (change)="onFileSelected($event)"
+    />
+    <button class="button-4" (click)="fileInput.click()">Choose picture</button>
+  </div>
 
-    <div class="post-element">
-      <!-- <label class="student-element" for="age">Age: </label> -->
-      <input type="number" placeholder="z_position" [(ngModel)]="z_position" />
-    </div>
+  <div class="post-element">
+    <input
+      type="text"
+      placeholder="#Tags (split by ',')"
+      [(ngModel)]="hashTag"
+    />
+  </div>
 
-    <div class="post-element">
-      <!-- <label class="student-element" for="age">Age: </label> -->
-      <input type="date" placeholder="date" [(ngModel)]="date" />
-    </div>
+  <div class="post-element">
+    <input
+      type="text"
+      placeholder="Tag people (split by ',')"
+      [(ngModel)]="userTag"
+    />
+  </div>
 
-    <div class="post-element">
-      <!-- <label class="student-element" for="id">ID: </label> -->
-      <input type="text" placeholder="comments" [(ngModel)]="comments" />
-    </div>
-
-    <div class="post-element">
-      <!-- <label class="student-element" for="id">ID: </label> -->
-      <input type="text" placeholder="userName" [(ngModel)]="userName" />
-    </div>
-
-    <div class="post-element">
-      <!-- <label class="student-element" for="id">ID: </label> -->
-      <input type="text" placeholder="hashTag" [(ngModel)]="hashTag" />
-    </div>
-
-    <div class="post-element">
-      <!-- <label class="student-element" for="id">ID: </label> -->
-      <input type="text" placeholder="userTag" [(ngModel)]="userTag" />
-    </div>
-
-    <div class="post-element">
-      <!-- <label class="student-element" for="picture">URL for photo: </label> -->
-      <input type="text" placeholder="URL" [(ngModel)]="img" />
-      <span> OR</span>
-      <input
-        #fileInput
-        [ngStyle]="{ display: 'none' }"
-        type="file"
-        accept="image/*"
-        (change)="onFileSelected($event)"
-      />
-      <button class="button-4" (click)="fileInput.click()">
-        Choose picture
-      </button>
-    </div>
-
-    <div class="btn-place">
-      <button class="btn-style" (click)="addPost()">Add post</button>
-    </div>
+  <div class="btn-place">
+    <button class="btn-style" (click)="addPost()">Add post</button>
   </div>
 </div>
 
@@ -73,7 +53,7 @@
   <div class="alert-box">
     <div>{{ errorAlarm }}</div>
     <div class="text-right">
-      <button type="button" class="btn-close" (click)="closeDialog()"></button>
+      <button type="button" class="button-27" (click)="closeDialog()">X</button>
     </div>
   </div>
 </div>

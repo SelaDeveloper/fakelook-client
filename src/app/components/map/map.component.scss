@@ -1,0 +1,41 @@
+.map-container {
+  width: 100%;
+  height: 580px;
+  overflow: hidden;
+  position: relative;
+  border: 7px solid steelblue;
+  border-radius: 20px;
+}
+
+.btn {
+  border-radius: 0.25em;
+  border: 0.2em solid black;
+  cursor: pointer;
+}
+
+.btn-home {
+  background-color: rgb(33, 172, 75);
+}
+
+.btn-random {
+  background-color: rgb(243, 220, 11);
+}
+
+.map-post {
+  width: 5vw;
+  background-color: aliceblue;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.post-description {
+  padding: 0.5em;
+  font-family: sans-serif;
+  font-weight: bold;
+  overflow: hidden;
+}
+
+img {
+  width: 100%;
+  border-radius: 10px 10px 0 0;
+}

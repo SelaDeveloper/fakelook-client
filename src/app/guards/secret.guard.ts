@@ -26,7 +26,7 @@ export class SecretGuard implements CanActivate {
     return this.authService.checkAccess().pipe(
       map((res) => {
         if (!res) {
-          return this.router.parseUrl('/Login');
+          return this.router.parseUrl('/login');
         } else {
           return res;
         }

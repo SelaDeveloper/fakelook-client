@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-sm navbar-light">
+  <div class="container-fluid">
+    <ul class="navbar-nav">
+      <li class="navbar-item">
+        <img
+          class="icon1"
+          src="/assets/newPost.png"
+          alt="new post"
+          (click)="addPostPage()"
+        />
+      </li>
+      <li class="navbar-item">
+        <a class="nav-link">
+          <img
+            class="icon2"
+            src="/assets/friends3.png"
+            alt="new post"
+            (click)="addFriendsPage()"
+          />
+        </a>
+      </li>
+      <li class="navbar-item">
+        <a class="nav-link">
+          <img
+            class="icon1"
+            src="/assets/search.png"
+            alt="new post"
+            (click)="addSearchPage()"
+          />
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<app-add-post
+  (onAddPost)="updatePostsList($event)"
+  *ngIf="showAddPostActive"
+></app-add-post>
+
+<app-friends *ngIf="showFriendsActive"></app-friends>
+
+<app-search *ngIf="showSearchActive"></app-search>
+
+<!-- <div class="center">
+  <router-outlet name="navbarRouter"></router-outlet>
+</div> -->
+
+<!-- [routerLink]="['', { outlets: { navbarRouter: ['add-post'] } }]" -->

@@ -3,25 +3,76 @@
     <div class="btn-x">
       <button class="button-42" (click)="deletePost()">X</button>
     </div>
-    <span class="post-element">Comment: {{ post.description }}</span>
+    <span class="post-element">Description: {{ post.description }}</span>
   </div>
   <div>
-    <span class="post-element">x_position: {{ post.x_position }}</span>
+    <img class="post-element-img" src="{{ post.imageSorce }}" />
   </div>
-  <div>
-    <span class="post-element">y_position: {{ post.y_position }}</span>
-  </div>
-  <div>
-    <span class="post-element">z_position: {{ post.z_position }}</span>
-  </div>
-  <div>
-    <span class="post-element">Date: {{ post.date }}</span>
-  </div>
-  <div>
-    <img class="post-element-img" src="{{ post.img }}" />
+  <div *ngIf="showDetailsActive">
+    <button class="button-4" (click)="showDetails()">Show Details</button>
   </div>
 
-  <hr />
+  <div *ngIf="detailsActive">
+    <div>
+      <span class="post-element">X_Position: {{ post.x_Position }}</span>
+    </div>
+    <div>
+      <span class="post-element">y_position: {{ post.y_Position }}</span>
+    </div>
+    <div>
+      <span class="post-element">z_position: {{ post.z_Position }}</span>
+    </div>
+    <div>
+      <span class="post-element">Date: {{ post.date | date }}</span>
+    </div>
+    <div>
+      <span class="post-element">UsersTags: {{ post.userTag }}</span>
+    </div>
+    <div>
+      <span class="post-element">#Tags: {{ post.hashTag }}</span>
+    </div>
+    <div>
+      <span class="post-element">Comments: {{ post.comments }}</span>
+    </div>
+
+    <div class="icons">
+      <div>
+        <button mat-icon-button color="warn" (click)="likePost()">
+          <i
+            [ngClass]="{ bx: true, 'bx-heart': flag1, 'bxs-heart': flag2 }"
+          ></i>
+        </button>
+        {{ post.likes?.length }}
+      </div>
+
+      <div>
+        <button mat-icon-button color="primary" (click)="addComment()">
+          <i class="bx bxs-comment-detail"></i>
+        </button>
+        (number of comments)
+      </div>
+
+      <div>
+        <button mat-icon-button (click)="editPost()">
+          <i class="bx bxs-edit"></i>
+        </button>
+      </div>
+    </div>
+
+    <div>
+      <mat-form-field
+        class="example-full-width"
+        appearance="legacy"
+        *ngIf="commentActive"
+      >
+        <mat-label>Leave a comment</mat-label>
+        <textarea matInput placeholder="Write something..."></textarea>
+      </mat-form-field>
+    </div>
+    <div class="close-btn-place">
+      <button class="button-4" (click)="closeDetails()">Close</button>
+    </div>
+  </div>
 
   <div #dialogAlarm class="ref">
     <div class="alert-box">

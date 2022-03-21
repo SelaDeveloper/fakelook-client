@@ -27,71 +27,72 @@ export class AddPostComponent {
 
   errorAlarm = '';
   urlFile: any;
+  imgActive = true;
 
   userId = 0;
   description = '';
-  img = '';
-  x_position = 0;
-  y_position = 0;
-  z_position = 0;
+  x_Position = 0;
+  y_Position = 0;
+  z_Position = 0;
   date = Date;
-  likes = NaN;
+  likes = [];
   comments = '';
-  userName = '';
   hashTag = '';
   userTag = '';
 
   addPost() {
     if (this.ValidationValues()) {
-      if (this.urlFile != null) this.img = this.urlFile;
-
       const post: IPost = {
         userId: this.authService.getId(),
         description: this.description,
-        img: this.img,
-        x_position: this.x_position,
-        y_position: this.y_position,
-        z_position: this.z_position,
+        imageSorce: this.urlFile,
+        x_Position: this.x_Position,
+        y_Position: this.y_Position,
+        z_Position: this.z_Position,
         date: new Date(),
-        // likes: NaN,
+        // likes: this.likes.length,
         // comments: this.comments,
         // hashTag: this.hashTag,
         // userTag: this.userTag,
       };
-
-      this.postService.insertPost(post).subscribe(
-        (res) => {
-          console.log(res);
-        },
-        (error) => console.log(error)
-      );
+      this.postEmitter.emit(post);
+      // this.postService.insertPost(post).subscribe(
+      //   (res) => {
+      //     console.log(res);
+      //   },
+      //   (error) => console.log(error)
+      // );
 
       this.description = '';
-      this.img = '';
-      this.x_position = 0;
-      this.y_position = 0;
-      this.z_position = 0;
+      this.x_Position = 0;
+      this.y_Position = 0;
+      this.z_Position = 0;
       this.date = Date;
+      this.likes = [];
       this.comments = '';
-      this.userName = '';
       this.hashTag = '';
       this.userTag = '';
       this.urlFile = null;
       this.fileInput.nativeElement.value = '';
+      this.imgActive = true;
     }
   }
 
   ValidationValues(): boolean {
     if (this.description == '') {
-      this.errorAlarm = 'Please, put your description!';
+      this.errorAlarm = 'Please, put a description!';
       this.openDialog();
       return false;
-    } else if (this.x_position <= 0 || isNaN(this.x_position)) {
-      this.errorAlarm = 'Please, put x_position';
+    } else if (this.hasWhiteSpace(this.hashTag)) {
+      this.errorAlarm = 'Please, put #Tags without spaces!';
       this.openDialog();
       return false;
-    } else if (this.urlFile != null && this.img != '') {
-      this.errorAlarm = 'Please, delete the URL first!';
+    } else if (this.hasWhiteSpace(this.userTag)) {
+      this.errorAlarm = 'Please, put "Tagged users" without spaces!';
+      this.openDialog();
+      return false;
+    } else if (this.urlFile == null) {
+      this.errorAlarm = 'Please, choose a picture!';
       this.openDialog();
       return false;
     } else return true;
@@ -113,6 +114,38 @@ export class AddPostComponent {
 
     reader.onload = (file) => {
       this.urlFile = reader.result;
+      this.imgActive = false;
     };
   }
+
+  hasWhiteSpace(s: string) {
+    return s.indexOf(' ') >= 0;
+  }
+
+  // addPostExample(img: any): void {
+  //   const form = new FormData();
+  //   form.append('description', this.post.description);
+  //   form.append('location', JSON.stringify(this.homeLocation()));
+  //   form.append('image', this.file);
+  //   this.submitEmitter.emit(form);
+  //   this.post = new Post();
+  //   img.value = '';
+  //   this.file = undefined;
+  // }
+
+  // private homeLocation(): void {
+  //   navigator.geolocation.getCurrentPosition((data) => {
+  //     const { latitude, longitude } = data.coords;
+  //     const position = Cesium.Cartesian3.fromDegrees(longitude, latitude);
+  //     const entity = {
+  //       id: 'my-home',
+  //       position,
+  //     };
+  //     this.entities$ = of({
+  //       id: entity.id,
+  //       actionType: ActionType.ADD_UPDATE,
+  //       entity,
+  //     });
+  //   });
+  // }
 }

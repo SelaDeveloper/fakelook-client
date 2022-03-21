@@ -1,0 +1,41 @@
+.navbar-light {
+  background-color: rgb(206, 204, 204);
+  border-radius: 10px 10px 0px 0px;
+  // height: 10vmin;
+  // border: 2px solid green;
+}
+
+.container-fluid {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  // border: 5px solid red;
+  // justify-content: center;
+}
+
+ul {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+li {
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+li:hover {
+  transform: translateY(-3px);
+}
+
+li:active {
+  transform: translateZ(-5px);
+}
+
+.icon1 {
+  width: 2.8vw;
+}
+
+.icon2 {
+  width: 4.2vw;
+}

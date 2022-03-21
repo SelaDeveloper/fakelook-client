@@ -13,10 +13,10 @@ export class FakelookComponent implements OnInit {
 
   constructor(private postsService: PostService) {}
   ngOnInit(): void {
-    this.getStudents();
+    this.getPosts();
   }
 
-  getStudents() {
+  getPosts() {
     this.postsService.getPost().subscribe(
       (posts) => {
         this.posts = posts;
@@ -26,15 +26,15 @@ export class FakelookComponent implements OnInit {
     );
   }
 
-  updatePostsList(post: IPost) {
-    this.postsService.insertPost(post).subscribe(() => {
-      this.getStudents();
-    });
-  }
+  // updatePostsList(post: IPost) {
+  //   this.postsService.insertPost(post).subscribe(() => {
+  //     this.getPosts();
+  //   });
+  // }
 
   deletePost(post: IPost) {
     this.postsService.deletePost(post).subscribe(() => {
-      this.getStudents();
+      this.getPosts();
     });
   }
 }

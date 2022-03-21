@@ -1,8 +1,11 @@
 <div class="fakelook-container">
-  <h1>FakeLook</h1>
+  <h1><img class="logo" src="/assets/fakelook.png" alt="logo" /> FakeLook</h1>
 
-  <div class="add-post-container">
-    <app-add-post (onAddPost)="updatePostsList($event)"></app-add-post>
+  <div class="fake-post-container">
+    <div class="nav-container">
+      <app-navbar (updateList)="getPosts()"></app-navbar>
+    </div>
+    <div class="map-container"><app-map></app-map></div>
   </div>
 
   <div class="posts-profile">

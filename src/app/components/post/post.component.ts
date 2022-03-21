@@ -18,7 +18,14 @@ export class PostComponent {
   @Output('onDeletePost') postEmitter = new EventEmitter<IPost>();
 
   @ViewChild('dialogAlarm') dialogAlarm!: ElementRef;
+
   errorAlarm = '';
+  detailsActive = false;
+  showDetailsActive = true;
+  commentActive = false;
+
+  flag1 = true;
+  flag2 = false;
 
   constructor() {}
 
@@ -41,4 +48,31 @@ export class PostComponent {
   noAnswer() {
     this.closeDialog();
   }
+
+  showDetails() {
+    this.detailsActive = true;
+    this.showDetailsActive = false;
+  }
+
+  closeDetails() {
+    this.detailsActive = false;
+    this.showDetailsActive = true;
+  }
+
+  likePost() {
+    if (this.flag1 == true) {
+      this.flag1 = false;
+      this.flag2 = true;
+    } else {
+      this.flag1 = true;
+      this.flag2 = false;
+    }
+  }
+
+  addComment() {
+    if (this.commentActive == false) this.commentActive = true;
+    else this.commentActive = false;
+  }
+
+  editPost() {}
 }

@@ -1,5 +1,19 @@
 <div class="fakelook-container">
-  <h1><img class="logo" src="/assets/fakelook.png" alt="logo" /> FakeLook</h1>
+  <div class="logout-div">
+    <div>
+      <h1>
+        <img class="logo" src="/assets/fakelook.png" alt="logo" /> FakeLook
+      </h1>
+    </div>
+    <div>
+      <img
+        class="icon"
+        src="/assets/logout.png"
+        alt="new post"
+        (click)="logOut()"
+      />
+    </div>
+  </div>
 
   <div class="fake-post-container">
     <div class="nav-container">
@@ -15,5 +29,17 @@
       (onDeletePost)="deletePost($event)"
     >
     </app-post>
+  </div>
+
+  <div #dialogAlarm class="ref">
+    <div class="alert-box">
+      <div>{{ errorAlarm }}</div>
+      <div class="btn-container">
+        <button type="button" class="button-29" (click)="yesAnswer()">
+          Yes
+        </button>
+        <button type="button" class="button-29" (click)="noAnswer()">No</button>
+      </div>
+    </div>
   </div>
 </div>

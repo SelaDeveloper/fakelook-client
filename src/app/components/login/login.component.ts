@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     // this.authService.login(user);
 
     const user: IUser = {
-      username: this.loginForm.controls['userName'].value,
+      userName: this.loginForm.controls['userName'].value,
       password: this.loginForm.controls['password'].value,
       firstName: '',
       lastName: '',

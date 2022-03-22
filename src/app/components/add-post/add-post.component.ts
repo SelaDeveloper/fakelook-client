@@ -2,10 +2,16 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
+import { IComment } from 'src/app/models/IComment';
+import { ILike } from 'src/app/models/ILike';
 import { IPost } from 'src/app/models/IPost';
+import { ITag } from 'src/app/models/ITag';
+import { IUser } from 'src/app/models/IUser';
+import { IUserTaggedPost } from 'src/app/models/IUserTaggedPost';
 import { AuthService } from 'src/app/services/auth.service';
 import { PostService } from 'src/app/services/post.service';
 
@@ -14,11 +20,22 @@ import { PostService } from 'src/app/services/post.service';
   templateUrl: './add-post.component.html',
   styleUrls: ['./add-post.component.scss'],
 })
-export class AddPostComponent {
+export class AddPostComponent implements OnInit {
   constructor(
     private postService: PostService,
     private authService: AuthService
   ) {}
+
+  ngOnInit(): void {
+    // navigator.geolocation.getCurrentPosition((postion)=> {
+    //   this.post.x_Position = postion.coords.longitude
+    //   this.post.y_Position = postion.coords.latitude
+    //   // if(postion.coords.altitude !== null)
+    //   this.post.z_Position = 3620170.526302757
+    //   // postion.coords.altitude לטפל בזה בהמשך
+    //   // else  this.post.z_Position = 0
+    // });
+  }
 
   @Output('onAddPost') postEmitter = new EventEmitter<IPost>();
 
@@ -35,10 +52,12 @@ export class AddPostComponent {
   y_Position = 0;
   z_Position = 0;
   date = Date;
-  likes = [];
-  comments = '';
-  hashTag = '';
-  userTag = '';
+  likes: ILike[] = [];
+  comments: IComment[] = [];
+  tags: ITag[] = [];
+  userTaggedPost: IUserTaggedPost[] = [];
+  tagsString = '';
+  userTaggedPostString = '';
 
   addPost() {
     if (this.ValidationValues()) {
@@ -50,18 +69,10 @@ export class AddPostComponent {
         y_Position: this.y_Position,
         z_Position: this.z_Position,
         date: new Date(),
-        // likes: this.likes.length,
-        // comments: this.comments,
-        // hashTag: this.hashTag,
-        // userTag: this.userTag,
+        tags: this.splitTags(this.tagsString),
+        userTaggedPost: this.splitUserTaggedPost(this.userTaggedPostString),
       };
       this.postEmitter.emit(post);
-      // this.postService.insertPost(post).subscribe(
-      //   (res) => {
-      //     console.log(res);
-      //   },
-      //   (error) => console.log(error)
-      // );
 
       this.description = '';
       this.x_Position = 0;
@@ -69,9 +80,10 @@ export class AddPostComponent {
       this.z_Position = 0;
       this.date = Date;
       this.likes = [];
-      this.comments = '';
-      this.hashTag = '';
-      this.userTag = '';
+      this.comments = [];
+      this.tags = [];
+      this.tagsString = '';
+      this.userTaggedPost = [];
       this.urlFile = null;
       this.fileInput.nativeElement.value = '';
       this.imgActive = true;
@@ -83,18 +95,18 @@ export class AddPostComponent {
       this.errorAlarm = 'Please, put a description!';
       this.openDialog();
       return false;
-    } else if (this.hasWhiteSpace(this.hashTag)) {
+    } else if (this.hasWhiteSpace(this.tagsString)) {
       this.errorAlarm = 'Please, put #Tags without spaces!';
       this.openDialog();
       return false;
-    } else if (this.hasWhiteSpace(this.userTag)) {
+    } else if (this.hasWhiteSpace(this.userTaggedPostString)) {
       this.errorAlarm = 'Please, put "Tagged users" without spaces!';
       this.openDialog();
       return false;
-    } else if (this.urlFile == null) {
-      this.errorAlarm = 'Please, choose a picture!';
-      this.openDialog();
-      return false;
+      // } else if (this.urlFile == null) {
+      //   this.errorAlarm = 'Please, choose a picture!';
+      //   this.openDialog();
+      //   return false;
     } else return true;
   }
 
@@ -122,30 +134,22 @@ export class AddPostComponent {
     return s.indexOf(' ') >= 0;
   }
 
-  // addPostExample(img: any): void {
-  //   const form = new FormData();
-  //   form.append('description', this.post.description);
-  //   form.append('location', JSON.stringify(this.homeLocation()));
-  //   form.append('image', this.file);
-  //   this.submitEmitter.emit(form);
-  //   this.post = new Post();
-  //   img.value = '';
-  //   this.file = undefined;
-  // }
+  splitTags(tagsString: string) {
+    var splitted = tagsString.split(',');
+    for (var i = 0; i < splitted.length; i++) {
+      this.tags[i] = {} as ITag;
+      this.tags[i].content = splitted[i];
+    }
+    return this.tags;
+  }
 
-  // private homeLocation(): void {
-  //   navigator.geolocation.getCurrentPosition((data) => {
-  //     const { latitude, longitude } = data.coords;
-  //     const position = Cesium.Cartesian3.fromDegrees(longitude, latitude);
-  //     const entity = {
-  //       id: 'my-home',
-  //       position,
-  //     };
-  //     this.entities$ = of({
-  //       id: entity.id,
-  //       actionType: ActionType.ADD_UPDATE,
-  //       entity,
-  //     });
-  //   });
-  // }
+  splitUserTaggedPost(userTaggedPostString: string) {
+    var splitted = userTaggedPostString.split(',');
+    for (var i = 0; i < splitted.length; i++) {
+      this.userTaggedPost[i] = {} as IUserTaggedPost;
+      this.userTaggedPost[i].user = {} as IUser;
+      this.userTaggedPost[i].user.userName = splitted[i];
+    }
+    return this.userTaggedPost;
+  }
 }

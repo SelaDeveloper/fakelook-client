@@ -38,7 +38,6 @@ export class SearchComponent {
   }
 
   ValidationValues(): boolean {
-    console.log(this.dateFrom);
     if (
       this.dateFrom == Date &&
       this.dateTo == Date &&

@@ -18,6 +18,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PopUpPostComponent } from './components/pop-up-post/pop-up-post.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { CommentComponent } from './components/comment/comment.component';
+import { AddCommentComponent } from './components/add-comment/add-comment.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { MatButtonModule } from '@angular/material/button';
     FriendsComponent,
     SearchComponent,
     PopUpPostComponent,
+    CommentComponent,
+    AddCommentComponent,
   ],
   imports: [
     BrowserModule,

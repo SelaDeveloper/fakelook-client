@@ -3,18 +3,23 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
+import { ILike } from 'src/app/models/ILike';
 import { IPost } from 'src/app/models/IPost';
+import { ITag } from 'src/app/models/ITag';
+import { PostService } from 'src/app/services/post.service';
+import { threadId } from 'worker_threads';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss'],
 })
-export class PostComponent {
-  @Input('postItem') post!: IPost;
+export class PostComponent implements OnInit {
+  @Input('postItem') post: IPost;
   @Output('onDeletePost') postEmitter = new EventEmitter<IPost>();
 
   @ViewChild('dialogAlarm') dialogAlarm!: ElementRef;
@@ -22,12 +27,18 @@ export class PostComponent {
   errorAlarm = '';
   detailsActive = false;
   showDetailsActive = true;
+
   commentActive = false;
+  likedByUser = false;
+  likesCount = 0;
+  userId = parseInt(sessionStorage.getItem('id')!);
 
-  flag1 = true;
-  flag2 = false;
-
-  constructor() {}
+  constructor(private postsService: PostService) {
+    this.post = {} as IPost;
+  }
+  ngOnInit(): void {
+    this.checkIfLiked(this.post);
+  }
 
   deletePost() {
     this.dialogAlarm.nativeElement.classList.add('backdrop');
@@ -60,12 +71,17 @@ export class PostComponent {
   }
 
   likePost() {
-    if (this.flag1 == true) {
-      this.flag1 = false;
-      this.flag2 = true;
+    this.postsService
+      .insertLike(this.post.id!, this.userId)
+      .subscribe((res) => {
+        console.log(res);
+        this.checkIfLiked(res);
+      });
+
+    if (this.likedByUser == true) {
+      this.likedByUser = false;
     } else {
-      this.flag1 = true;
-      this.flag2 = false;
+      this.likedByUser = true;
     }
   }
 
@@ -74,5 +90,34 @@ export class PostComponent {
     else this.commentActive = false;
   }
 
-  editPost() {}
+  editPost() {
+    this.splitTag();
+  }
+
+  checkIfLiked(post: IPost) {
+    this.likesCount = 0;
+    post.likes?.forEach((element) => {
+      if (element.isActive) {
+        this.likesCount++;
+        if (element.userId == this.userId) this.likedByUser = true;
+        else {
+          this.likedByUser = false;
+        }
+      } else {
+        this.likedByUser = false;
+      }
+    });
+  }
+
+  splitTag() {
+    let tagsArr = this.post.tags;
+    let resultArr;
+    return (resultArr = tagsArr?.map((p) => p.content).toString());
+  }
+
+  splitUserTaggedPost() {
+    let userTagsArr = this.post.userTaggedPost;
+    let resultArr;
+    return (resultArr = userTagsArr?.map((p) => p.user.userName).toString());
+  }
 }

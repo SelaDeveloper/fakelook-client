@@ -1,3 +1,7 @@
+import { IComment } from './IComment';
+import { ITag } from './ITag';
+import { IUserTaggedPost } from './IUserTaggedPost';
+
 export interface IPost {
   id?: number;
   userId: number;
@@ -8,7 +12,7 @@ export interface IPost {
   z_Position: number;
   date: Date;
   likes?: any[];
-  comments?: string;
-  hashTag?: string;
-  userTag?: string;
+  comments?: IComment[];
+  tags?: ITag[];
+  userTaggedPost?: IUserTaggedPost[];
 }

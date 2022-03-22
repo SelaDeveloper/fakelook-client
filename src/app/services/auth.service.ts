@@ -23,6 +23,7 @@ export class AuthService implements OnDestroy {
       this.http.post<any>(currentUrl, user, httpOptions).subscribe((res) => {
         this.setToken(res.token);
         this.setId(res.id);
+        sessionStorage.setItem('userName', user.userName);
         this.router.navigateByUrl('/fakelook');
       })
     );
@@ -32,10 +33,9 @@ export class AuthService implements OnDestroy {
 
     this.subs.push(
       this.http.post<any>(currentUrl, user).subscribe((res) => {
-        console.log(res);
         this.setToken(res.token);
         this.setId(res.id);
-        console.log(res.id);
+        sessionStorage.setItem('userName', user.userName);
         this.router.navigateByUrl('/fakelook');
       })
     );

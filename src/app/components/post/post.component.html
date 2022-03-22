@@ -26,30 +26,39 @@
       <span class="post-element">Date: {{ post.date | date }}</span>
     </div>
     <div>
-      <span class="post-element">UsersTags: {{ post.userTag }}</span>
+      <span class="post-element">UsersTags: {{ splitUserTaggedPost() }}</span>
     </div>
     <div>
-      <span class="post-element">#Tags: {{ post.hashTag }}</span>
+      <span class="post-element">#Tags: {{ splitTag() }}</span>
     </div>
-    <div>
-      <span class="post-element">Comments: {{ post.comments }}</span>
-    </div>
+    <!-- <div>
+      <span class="post-element"
+        ><app-comment
+          [postComment]="comment"
+          *ngFor="let comment of post.comments"
+        ></app-comment
+      ></span>
+    </div> -->
 
     <div class="icons">
       <div>
         <button mat-icon-button color="warn" (click)="likePost()">
           <i
-            [ngClass]="{ bx: true, 'bx-heart': flag1, 'bxs-heart': flag2 }"
+            [ngClass]="{
+              bx: true,
+              'bx-heart': !likedByUser,
+              'bxs-heart': likedByUser
+            }"
           ></i>
         </button>
-        {{ post.likes?.length }}
+        {{ likesCount }}
       </div>
 
       <div>
         <button mat-icon-button color="primary" (click)="addComment()">
           <i class="bx bxs-comment-detail"></i>
         </button>
-        (number of comments)
+        {{ post.comments?.length }}
       </div>
 
       <div>
@@ -59,15 +68,8 @@
       </div>
     </div>
 
-    <div>
-      <mat-form-field
-        class="example-full-width"
-        appearance="legacy"
-        *ngIf="commentActive"
-      >
-        <mat-label>Leave a comment</mat-label>
-        <textarea matInput placeholder="Write something..."></textarea>
-      </mat-form-field>
+    <div *ngIf="commentActive">
+      <app-add-comment [postId]="post.id"></app-add-comment>
     </div>
     <div class="close-btn-place">
       <button class="button-4" (click)="closeDetails()">Close</button>

@@ -15,12 +15,14 @@ export class FakelookComponent implements OnInit {
   errorAlarm = '';
   error = false;
   posts: IPost[] = [];
+  userName = sessionStorage.getItem('userName');
 
   constructor(
     private postsService: PostService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
+
   ngOnInit(): void {
     this.getPosts();
   }
@@ -38,6 +40,10 @@ export class FakelookComponent implements OnInit {
     this.postsService.deletePost(post).subscribe(() => {
       this.getPosts();
     });
+  }
+
+  postAdded() {
+    this.getPosts();
   }
 
   logOut() {
@@ -59,5 +65,9 @@ export class FakelookComponent implements OnInit {
 
   noAnswer() {
     this.closeDialog();
+  }
+
+  updateListBySearch(event: IPost[]) {
+    this.posts = event;
   }
 }

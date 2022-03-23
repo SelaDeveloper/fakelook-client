@@ -40,11 +40,9 @@ export class AddCommentComponent {
           this.userTaggedPostString
         ),
       };
-      console.log('Here');
+
       console.log(comment);
-      this.postsService.insertComment(comment).subscribe((res) => {
-        console.log(res);
-      });
+      this.postsService.insertComment(comment).subscribe(() => {});
       // this.commentEmitter.emit(comment);
 
       this.commentString = '';

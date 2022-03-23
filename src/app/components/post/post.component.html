@@ -31,14 +31,6 @@
     <div>
       <span class="post-element">#Tags: {{ splitTag() }}</span>
     </div>
-    <!-- <div>
-      <span class="post-element"
-        ><app-comment
-          [postComment]="comment"
-          *ngFor="let comment of post.comments"
-        ></app-comment
-      ></span>
-    </div> -->
 
     <div class="icons">
       <div>
@@ -71,6 +63,14 @@
     <div *ngIf="commentActive">
       <app-add-comment [postId]="post.id"></app-add-comment>
     </div>
+
+    <div class="comment-element">
+      <app-comment
+        [postComment]="comment"
+        *ngFor="let comment of post.comments"
+      ></app-comment>
+    </div>
+
     <div class="close-btn-place">
       <button class="button-4" (click)="closeDetails()">Close</button>
     </div>

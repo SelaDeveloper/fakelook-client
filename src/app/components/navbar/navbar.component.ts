@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IPost } from 'src/app/models/IPost';
 import { PostService } from 'src/app/services/post.service';
 
@@ -9,7 +9,8 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class NavbarComponent {
   @Output('updateList') updatePostListEmitter = new EventEmitter<IPost>();
-  @Output() searchUpdate = new EventEmitter<IPost>();
+
+  @Output() searchUpdate = new EventEmitter<IPost[]>();
 
   constructor(private postsService: PostService) {}
 
@@ -19,7 +20,7 @@ export class NavbarComponent {
 
   updatePostsList(post: IPost) {
     this.postsService.insertPost(post).subscribe(() => {
-      this.updatePostListEmitter.emit();
+      this.updatePostListEmitter.emit(post);
       // this.getPosts();
     });
   }
@@ -40,5 +41,9 @@ export class NavbarComponent {
     this.showAddPostActive = false;
     this.showFriendsActive = false;
     this.showSearchActive = true;
+  }
+
+  makeSearch(event: IPost[]) {
+    this.searchUpdate.emit(event);
   }
 }

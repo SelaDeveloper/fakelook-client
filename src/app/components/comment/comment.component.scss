@@ -1,16 +1,15 @@
 .post-container {
   display: flex;
   flex-direction: column;
-  width: 25vw;
-  height: 100%;
-  padding: 15px 15px;
+  padding: 5px;
+  margin: 5px;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 16px 24px 2px rgba(33, 37, 41, 0.02),
     0 6px 30px 5px rgba(33, 37, 41, 0.04), 0 8px 10px -5px rgba(33, 37, 41, 0.1);
   word-wrap: break-word;
   transition: 0.5s;
-  border: 8px solid steelblue;
+  border: 2px solid steelblue;
 }
 
 .post-container:hover {

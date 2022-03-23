@@ -33,6 +33,7 @@
   </div>
 </nav>
 
+<!-- //emitter (onAddPost) to update timeLine -->
 <app-add-post
   (onAddPost)="updatePostsList($event)"
   *ngIf="showAddPostActive"
@@ -40,10 +41,7 @@
 
 <app-friends *ngIf="showFriendsActive"></app-friends>
 
-<app-search *ngIf="showSearchActive"></app-search>
-
-<!-- <div class="center">
-  <router-outlet name="navbarRouter"></router-outlet>
-</div> -->
-
-<!-- [routerLink]="['', { outlets: { navbarRouter: ['add-post'] } }]" -->
+<app-search
+  (searchEmitter)="makeSearch($event)"
+  *ngIf="showSearchActive"
+></app-search>

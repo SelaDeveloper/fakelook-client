@@ -1,9 +1,9 @@
 <div class="fakelook-container">
-  <div class="logout-div">
-    <div>
-      <h1>
-        <img class="logo" src="/assets/fakelook.png" alt="logo" /> FakeLook
-      </h1>
+  <div class="header-div">
+    <div class="online">{{ userName }} Online</div>
+
+    <div class="logo">
+      <img class="imgLogo" src="/assets/fakelook.png" alt="logo" /> FakeLook
     </div>
     <div>
       <img
@@ -17,7 +17,11 @@
 
   <div class="fake-post-container">
     <div class="nav-container">
-      <app-navbar (updateList)="getPosts()"></app-navbar>
+      <!-- //emitter (updateList) to update timeLine -->
+      <app-navbar
+        (searchUpdate)="updateListBySearch($event)"
+        (updateList)="getPosts()"
+      ></app-navbar>
     </div>
     <div class="map-container"><app-map></app-map></div>
   </div>

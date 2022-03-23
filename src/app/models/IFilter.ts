@@ -1,6 +1,6 @@
 export interface IFilter {
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   publishers: string[];
   tags: string[];
   taggedUsers: string[];

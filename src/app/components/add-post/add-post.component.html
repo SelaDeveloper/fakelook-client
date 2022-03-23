@@ -14,7 +14,13 @@
 
   <div class="img-element">
     <img src="/assets/preview2.png" alt="" *ngIf="imgActive" />
-    <img src="{{ urlFile }}" [(ngModel)]="urlFile" alt="" *ngIf="!imgActive" />
+    <img
+      src="{{ urlFile }}"
+      [(ngModel)]="urlFile"
+      ngDefaultControl
+      alt=""
+      *ngIf="!imgActive"
+    />
   </div>
 
   <div class="post-element">

@@ -6,7 +6,7 @@ import {
   ActionType,
   CameraService,
 } from 'angular-cesium';
-import { map, mergeMap, Observable, of } from 'rxjs';
+import { map, mergeMap, Observable, of, pairwise } from 'rxjs';
 import { IPost } from 'src/app/models/IPost';
 import { PostService } from 'src/app/services/post.service';
 import { PopUpPostComponent } from '../pop-up-post/pop-up-post.component';
@@ -57,10 +57,12 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   initPostsInList() {
     this.entities$ = this.postService.getPost().pipe(
+      pairwise(),
       map((posts) => {
-        return posts.map((post: IPost) => ({
+        const combine = posts[0].concat(posts[1]);
+        return combine.map((post: IPost) => ({
           id: post.id,
-          actionType: ActionType.ADD_UPDATE,
+          actionType: this.getActionType(post, posts[1]),
           entity: {
             ...post,
             location: Cesium.Cartesian3.fromDegrees(
@@ -75,51 +77,12 @@ export class MapComponent implements OnInit, AfterViewInit {
     );
   }
 
-  goHome(): void {
-    navigator.geolocation.getCurrentPosition(
-      (data) => {
-        const { latitude, longitude } = data.coords;
-        const position = Cesium.Cartesian3.fromDegrees(longitude, latitude);
-        const entity = {
-          id: 'my-home',
-          position,
-        };
-        this.entities$ = of({
-          id: entity.id,
-          actionType: ActionType.ADD_UPDATE,
-          entity,
-        });
-        this.zoomToLocation(position, 1000);
-      },
-      (err) => {
-        console.log(err);
-      },
-      { enableHighAccuracy: true, timeout: 10000 }
-    );
-  }
-  goRandom(): void {
-    const randomStart = {
-      latitude: 37.7768006 * Math.random(),
-      longitude: -122.4187928 * Math.random(),
-    };
-    const radius = 5000000000 * Math.random(); // meters
-    const { latitude, longitude } = randomLocation.randomCirclePoint(
-      randomStart,
-      radius
-    );
-
-    this.zoomToLocation(
-      Cesium.Cartesian3.fromDegrees(longitude, latitude),
-      100000
-    );
-  }
-  private zoomToLocation(position: any, zoom: number): void {
-    this.camera.cameraFlyTo({
-      destination: position,
-      complete: () => {
-        this.camera.zoomOut(zoom);
-      },
-    });
+  getActionType(post: IPost, newPosts: IPost[]): ActionType {
+    let action;
+    newPosts.find((p) => p.id === post.id)
+      ? (action = ActionType.ADD_UPDATE)
+      : (action = ActionType.DELETE);
+    return action;
   }
 
   showFullPost(post: IPost): void {

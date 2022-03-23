@@ -4,29 +4,37 @@
   <div class="search-element">
     <label for="dateFrom"
       >Date from:
-      <input type="date" placeholder="dateFrom" [(ngModel)]="dateFrom"
+      <input type="date" placeholder="dateFrom" [(ngModel)]="startDate"
     /></label>
   </div>
 
   <div class="search-element">
     <label for="dateTo"
-      >Date to: <input type="date" placeholder="dateTo" [(ngModel)]="dateTo"
+      >Date to: <input type="date" placeholder="dateTo" [(ngModel)]="endDate"
     /></label>
   </div>
 
   <div class="search-element">
     <label for="publishers">Publishers (split by ','):</label>
-    <input type="text" placeholder="publishers" [(ngModel)]="publishers" />
+    <input
+      type="text"
+      placeholder="publishers"
+      [(ngModel)]="publishersString"
+    />
   </div>
 
   <div class="search-element">
     <label for="hashTags">#Tags (split by ','): </label>
-    <input type="text" placeholder="hashTags" [(ngModel)]="hashTags" />
+    <input type="text" placeholder="hashTags" [(ngModel)]="tagsString" />
   </div>
 
   <div class="search-element">
     <label for="taggedUsers">Tagged people (split by ','): </label>
-    <input type="text" placeholder="taggedPeople" [(ngModel)]="taggedUsers" />
+    <input
+      type="text"
+      placeholder="taggedPeople"
+      [(ngModel)]="taggedUsersString"
+    />
   </div>
 
   <div class="btn-place">

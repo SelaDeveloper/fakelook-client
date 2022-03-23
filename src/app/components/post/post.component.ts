@@ -74,7 +74,6 @@ export class PostComponent implements OnInit {
     this.postsService
       .insertLike(this.post.id!, this.userId)
       .subscribe((res) => {
-        console.log(res);
         this.checkIfLiked(res);
       });
 

@@ -33,11 +33,12 @@
   </div>
 </nav>
 
-<!-- //emitter (onAddPost) to update timeLine -->
+<!-- <div class="add-post"> -->
 <app-add-post
   (onAddPost)="updatePostsList($event)"
   *ngIf="showAddPostActive"
 ></app-add-post>
+<!-- </div> -->
 
 <app-friends *ngIf="showFriendsActive"></app-friends>
 

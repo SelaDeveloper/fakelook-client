@@ -31,6 +31,7 @@
       *ngFor="let post of posts"
       [postItem]="post"
       (onDeletePost)="deletePost($event)"
+      (commentEmitter)="updateComment()"
     >
     </app-post>
   </div>

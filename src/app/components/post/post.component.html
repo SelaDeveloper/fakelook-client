@@ -14,22 +14,26 @@
 
   <div *ngIf="detailsActive">
     <div>
-      <span class="post-element">X_Position: {{ post.x_Position }}</span>
-    </div>
-    <div>
-      <span class="post-element">y_position: {{ post.y_Position }}</span>
-    </div>
-    <div>
-      <span class="post-element">z_position: {{ post.z_Position }}</span>
-    </div>
-    <div>
       <span class="post-element">Date: {{ post.date | date }}</span>
     </div>
-    <div>
-      <span class="post-element">UsersTags: {{ splitUserTaggedPost() }}</span>
+    <div *ngIf="!editActive">
+      <span class="post-element"
+        >UsersTags: {{ splitUserTaggedPostFromArray() }}</span
+      >
     </div>
-    <div>
-      <span class="post-element">#Tags: {{ splitTag() }}</span>
+    <div *ngIf="!editActive">
+      <span class="post-element"> #Tags: {{ splitTagFromArray() }}</span>
+    </div>
+    <div *ngIf="editActive">
+      <div class="post-element">
+        UsersTags:<input type="text" [(ngModel)]="newUsersTags" />
+      </div>
+      <div class="post-element">
+        #Tags:<input type="text" [(ngModel)]="newTags" />
+      </div>
+      <div>
+        <button (click)="saveChanges()">Save Changes</button>
+      </div>
     </div>
 
     <div class="icons">
@@ -61,7 +65,10 @@
     </div>
 
     <div *ngIf="commentActive">
-      <app-add-comment [postId]="post.id"></app-add-comment>
+      <app-add-comment
+        (commentEmitter)="makeComment()"
+        [postId]="post.id"
+      ></app-add-comment>
     </div>
 
     <div class="comment-element">

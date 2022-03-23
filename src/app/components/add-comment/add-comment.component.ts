@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IComment } from 'src/app/models/IComment';
+import { IPost } from 'src/app/models/IPost';
 import { ITag } from 'src/app/models/ITag';
 import { IUser } from 'src/app/models/IUser';
 import { IUserTaggedComment } from 'src/app/models/IUserTaggedComment';
-import { IUserTaggedPost } from 'src/app/models/IUserTaggedPost';
 import { AuthService } from 'src/app/services/auth.service';
 import { PostService } from 'src/app/services/post.service';
 
@@ -13,13 +13,10 @@ import { PostService } from 'src/app/services/post.service';
   styleUrls: ['./add-comment.component.scss'],
 })
 export class AddCommentComponent {
-  @Output('onAddComment') commentEmitter = new EventEmitter<IComment>();
+  @Output() commentEmitter = new EventEmitter<IPost>();
   @Input() postId?: number;
 
-  constructor(
-    private authService: AuthService,
-    private postsService: PostService
-  ) {}
+  constructor(private postsService: PostService) {}
 
   commentString = '';
   tagsString = '';
@@ -40,10 +37,9 @@ export class AddCommentComponent {
           this.userTaggedPostString
         ),
       };
-
-      console.log(comment);
-      this.postsService.insertComment(comment).subscribe(() => {});
-      // this.commentEmitter.emit(comment);
+      this.postsService.insertComment(comment).subscribe(() => {
+        this.commentEmitter.emit();
+      });
 
       this.commentString = '';
     }

@@ -27,14 +27,11 @@ export class AddPostComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // navigator.geolocation.getCurrentPosition((postion)=> {
-    //   this.post.x_Position = postion.coords.longitude
-    //   this.post.y_Position = postion.coords.latitude
-    //   // if(postion.coords.altitude !== null)
-    //   this.post.z_Position = 3620170.526302757
-    //   // postion.coords.altitude לטפל בזה בהמשך
-    //   // else  this.post.z_Position = 0
-    // });
+    navigator.geolocation.getCurrentPosition((postion) => {
+      this.x_Position = postion.coords.longitude;
+      this.y_Position = postion.coords.latitude;
+      this.z_Position = 3620170.526302757;
+    });
   }
 
   @Output('onAddPost') postEmitter = new EventEmitter<IPost>();

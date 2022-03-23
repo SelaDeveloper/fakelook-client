@@ -40,6 +40,30 @@ export class AuthService implements OnDestroy {
       })
     );
   }
+
+  reserPassword(user: IUser): void {
+    const currentUrl = `${environment.baseUrl}Auth/userName`;
+    let httpOption = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    this.subs.push(
+      this.http
+        .put<any>(
+          currentUrl +
+            '?userName=' +
+            user.userName +
+            '&newPassword=' +
+            user.password,
+          httpOption
+        )
+        .subscribe((res) => {
+          this.setToken(res.token);
+          this.setId(res.id);
+          sessionStorage.setItem('userName', user.userName);
+        })
+    );
+  }
+
   checkAccess(): Observable<boolean> {
     const currentUrl = `${environment.baseUrl}Auth/TestAll`;
 

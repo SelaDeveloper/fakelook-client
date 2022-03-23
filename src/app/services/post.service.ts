@@ -18,6 +18,7 @@ export class PostService {
   private likeUrl = `${environment.baseUrl}Posts/LikeUnLike`;
   private commentUrl = `${environment.baseUrl}Posts/AddComment`;
   private filterUrl = `${environment.baseUrl}Posts/Filter`;
+  private editUrl = `${environment.baseUrl}Posts/EditPost`;
 
   localPostsArray?: IPost[];
   postsSubject = new BehaviorSubject<IPost[]>([]);
@@ -73,6 +74,13 @@ export class PostService {
       (error) => console.log(error)
     );
     return this.postsSubject.asObservable();
+  }
+
+  editPost(post: IPost): Observable<IPost> {
+    let httpOption = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    return this.http.put<IPost>(this.editUrl, post, httpOption);
   }
 
   deletePost(post: IPost) {

@@ -10,8 +10,9 @@ import {
 import { ILike } from 'src/app/models/ILike';
 import { IPost } from 'src/app/models/IPost';
 import { ITag } from 'src/app/models/ITag';
+import { IUser } from 'src/app/models/IUser';
+import { IUserTaggedPost } from 'src/app/models/IUserTaggedPost';
 import { PostService } from 'src/app/services/post.service';
-import { threadId } from 'worker_threads';
 
 @Component({
   selector: 'app-post',
@@ -20,13 +21,17 @@ import { threadId } from 'worker_threads';
 })
 export class PostComponent implements OnInit {
   @Input('postItem') post: IPost;
-  @Output('onDeletePost') postEmitter = new EventEmitter<IPost>();
+  @Output('onDeletePost') postEmitter = new EventEmitter<any>();
+  @Output() commentEmitter = new EventEmitter<IPost>();
 
   @ViewChild('dialogAlarm') dialogAlarm!: ElementRef;
 
   errorAlarm = '';
   detailsActive = false;
+  editActive = false;
   showDetailsActive = true;
+  newUsersTags? = '';
+  newTags? = '';
 
   commentActive = false;
   likedByUser = false;
@@ -90,7 +95,8 @@ export class PostComponent implements OnInit {
   }
 
   editPost() {
-    this.splitTag();
+    if (!this.editActive) this.editActive = true;
+    else this.editActive = false;
   }
 
   checkIfLiked(post: IPost) {
@@ -108,15 +114,51 @@ export class PostComponent implements OnInit {
     });
   }
 
-  splitTag() {
+  splitTagFromArray() {
     let tagsArr = this.post.tags;
-    let resultArr;
-    return (resultArr = tagsArr?.map((p) => p.content).toString());
+    let resultArr = tagsArr?.map((p) => p.content).toString();
+    this.newTags = resultArr;
+    return resultArr;
   }
 
-  splitUserTaggedPost() {
+  splitUserTaggedPostFromArray() {
     let userTagsArr = this.post.userTaggedPost;
-    let resultArr;
-    return (resultArr = userTagsArr?.map((p) => p.user.userName).toString());
+    let resultArr = userTagsArr?.map((p) => p.user.userName).toString();
+    this.newUsersTags = resultArr;
+    return resultArr;
+  }
+
+  splitTagsFromString(str: string) {
+    let splitted = str.split(',');
+    for (var i = 0; i < splitted.length; i++) {
+      this.post.tags![i] = {} as ITag;
+      this.post.tags![i].content = splitted[i];
+    }
+    return this.post.tags;
+  }
+
+  splitUserTaggedFromString(str: string) {
+    var splitted = str.split(',');
+    for (var i = 0; i < splitted.length; i++) {
+      this.post.userTaggedPost![i] = {} as IUserTaggedPost;
+      this.post.userTaggedPost![i].user = {} as IUser;
+      this.post.userTaggedPost![i].user.userName = splitted[i];
+    }
+    return this.post.userTaggedPost;
+  }
+
+  saveChanges() {
+    this.post.userTaggedPost = this.splitUserTaggedFromString(
+      this.newUsersTags!
+    );
+    this.post.tags = this.splitTagsFromString(this.newTags!);
+    this.postsService.editPost(this.post).subscribe((res) => {
+      this.commentEmitter.emit();
+    });
+    this.editActive = false;
+  }
+
+  makeComment() {
+    this.commentEmitter.emit();
   }
 }

@@ -70,4 +70,8 @@ export class FakelookComponent implements OnInit {
   updateListBySearch(event: IPost[]) {
     this.posts = event;
   }
+  updateComment() {
+    console.log('ifnal');
+    this.getPosts();
+  }
 }

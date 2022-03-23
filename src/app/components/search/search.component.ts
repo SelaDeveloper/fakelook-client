@@ -48,7 +48,6 @@ export class SearchComponent {
       };
 
       this.postsService.insertFilter(filter).subscribe((res) => {
-        console.log(res);
         this.searchEmitter.emit(res);
       });
     }

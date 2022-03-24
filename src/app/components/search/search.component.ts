@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  Input,
   Output,
   ViewChild,
 } from '@angular/core';
@@ -62,39 +61,32 @@ export class SearchComponent {
   }
 
   ValidationValues(): boolean {
-    // if (
-    //   this.dateFrom == Date &&
-    //   this.dateTo == Date &&
-    //   this.publishers == '' &&
-    //   this.hashTags == '' &&
-    //   this.taggedUsers == ''
-    // ) {
-    //   this.errorAlarm = 'Please, put something!';
-    //   this.openDialog();
-    //   return false;
-    // } else if (
-    //   (this.dateFrom == Date && this.dateTo != Date) ||
-    //   (this.dateFrom != Date && this.dateTo == Date)
-    // ) {
-    //   this.errorAlarm = 'Please, choose the dateFrom and dateTo!';
-    //   this.openDialog();
-    //   return false;
-    // } else if (this.publishers != '') {
-    //   if (this.hasWhiteSpace(this.publishers))
-    //     this.errorAlarm = 'Please, put Publishers without spaces!';
-    //   this.openDialog();
-    //   return false;
-    // } else if (this.hashTags != '') {
-    //   if (this.hasWhiteSpace(this.hashTags))
-    //     this.errorAlarm = 'Please, put #Tags without spaces!';
-    //   this.openDialog();
-    //   return false;
-    // } else if (this.taggedUsers != '') {
-    //   if (this.hasWhiteSpace(this.taggedUsers))
-    //     this.errorAlarm = 'Please, put "Tagged users" without spaces!';
-    //   this.openDialog();
-    //   return false;
-    // } else
+    if (
+      (this.startDate == '' && this.endDate != '') ||
+      (this.startDate != '' && this.endDate == '')
+    ) {
+      this.errorAlarm = 'Please, choose the dateFrom and dateTo!';
+      this.openDialog();
+      return false;
+    } else if (this.publishersString != '') {
+      if (this.hasWhiteSpace(this.publishersString)) {
+        this.errorAlarm = 'Please, put Publishers without spaces!';
+        this.openDialog();
+        return false;
+      }
+    } else if (this.tagsString != '') {
+      if (this.hasWhiteSpace(this.tagsString)) {
+        this.errorAlarm = 'Please, put #Tags without spaces!';
+        this.openDialog();
+        return false;
+      }
+    } else if (this.taggedUsersString != '') {
+      if (this.hasWhiteSpace(this.taggedUsersString)) {
+        this.errorAlarm = 'Please, put "Tagged users" without spaces!';
+        this.openDialog();
+        return false;
+      }
+    }
     return true;
   }
 

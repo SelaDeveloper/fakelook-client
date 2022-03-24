@@ -32,7 +32,7 @@ export class PostComponent implements OnInit {
   showDetailsActive = true;
   newUsersTags? = '';
   newTags? = '';
-
+  flag = false;
   commentActive = false;
   likedByUser = false;
   likesCount = 0;
@@ -49,6 +49,11 @@ export class PostComponent implements OnInit {
     this.dialogAlarm.nativeElement.classList.add('backdrop');
     this.dialogAlarm.nativeElement.classList.remove('ref');
     this.errorAlarm = 'Are you sure?';
+  }
+
+  openDialog() {
+    this.dialogAlarm.nativeElement.classList.add('backdrop');
+    this.dialogAlarm.nativeElement.classList.remove('ref');
   }
 
   closeDialog() {
@@ -148,17 +153,36 @@ export class PostComponent implements OnInit {
   }
 
   saveChanges() {
-    this.post.userTaggedPost = this.splitUserTaggedFromString(
-      this.newUsersTags!
-    );
-    this.post.tags = this.splitTagsFromString(this.newTags!);
-    this.postsService.editPost(this.post).subscribe((res) => {
-      this.commentEmitter.emit();
-    });
-    this.editActive = false;
+    if (this.ValidationValues()) {
+      this.post.userTaggedPost = this.splitUserTaggedFromString(
+        this.newUsersTags!
+      );
+      this.post.tags = this.splitTagsFromString(this.newTags!);
+      this.postsService.editPost(this.post).subscribe((res) => {
+        this.commentEmitter.emit();
+      });
+
+      this.editActive = false;
+    }
   }
 
   makeComment() {
     this.commentEmitter.emit();
+  }
+
+  ValidationValues(): boolean {
+    if (this.hasWhiteSpace(this.newTags!)) {
+      this.errorAlarm = 'Please, put #Tags without spaces!';
+      this.openDialog();
+      return false;
+    } else if (this.hasWhiteSpace(this.newUsersTags!)) {
+      this.errorAlarm = 'Please, put "Tagged users" without spaces!';
+      this.openDialog();
+      return false;
+    } else return true;
+  }
+
+  hasWhiteSpace(s: string) {
+    return s.indexOf(' ') >= 0;
   }
 }

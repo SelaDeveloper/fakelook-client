@@ -8,7 +8,6 @@ import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService implements OnDestroy {
-  // private url = 'https://localhost:44349/api';
   subs: Subscription[] = [];
   constructor(private http: HttpClient, private router: Router) {}
   ngOnDestroy(): void {
@@ -20,24 +19,43 @@ export class AuthService implements OnDestroy {
     };
     const currentUrl = `${environment.baseUrl}Auth/SignUp`;
     this.subs.push(
-      this.http.post<any>(currentUrl, user, httpOptions).subscribe((res) => {
-        this.setToken(res.token);
-        this.setId(res.id);
-        sessionStorage.setItem('userName', user.userName);
-        this.router.navigateByUrl('/fakelook');
-      })
+      this.http.post<any>(currentUrl, user, httpOptions).subscribe(
+        (res) => {
+          this.setToken(res.token);
+          this.setId(res.id);
+          sessionStorage.setItem('userName', user.userName);
+          this.router.navigateByUrl('/fakelook');
+        },
+        (err) => {
+          if (err.status == 500) {
+            window.alert(
+              'Sorry, this UserName in use!, please try another UserName...'
+            );
+          }
+        }
+      )
     );
   }
   login(user: IUser): void {
     const currentUrl = `${environment.baseUrl}Auth/Login`;
 
     this.subs.push(
-      this.http.post<any>(currentUrl, user).subscribe((res) => {
-        this.setToken(res.token);
-        this.setId(res.id);
-        sessionStorage.setItem('userName', user.userName);
-        this.router.navigateByUrl('/fakelook');
-      })
+      this.http.post<any>(currentUrl, user).subscribe(
+        (res) => {
+          console.log(res.status);
+          this.setToken(res.token);
+          this.setId(res.id);
+          sessionStorage.setItem('userName', user.userName);
+          this.router.navigateByUrl('/fakelook');
+        },
+        (err) => {
+          if (err.status == 500) {
+            window.alert(
+              'Sorry,your password or UserName was incorrect!, please try again...'
+            );
+          }
+        }
+      )
     );
   }
 
@@ -57,9 +75,12 @@ export class AuthService implements OnDestroy {
           httpOption
         )
         .subscribe((res) => {
+          if (res == null) window.alert('Wrong UserName, please try again!');
           this.setToken(res.token);
           this.setId(res.id);
           sessionStorage.setItem('userName', user.userName);
+          this.router.navigateByUrl('/login');
+          window.alert('Good, password was changed!');
         })
     );
   }

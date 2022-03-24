@@ -89,23 +89,4 @@ export class PostService {
     };
     return this.http.delete<IPost>(this.postUrl + '/' + post.id, httpOption);
   }
-
-  // getFilteredPosts(filters : string){
-  //     this.http.get<IPost[]>(currentUrl, httpOptions).subscribe((res) => {
-  //       this.localPostsArray = res;
-  //       this.postsSubject.next(res);
-  //     });
-  //   }
-  // return this.postsSubject.asObservable();
-
-  //   getFilteredPosts(filters : string){
-  //     let token = sessionStorage.getItem('token');
-  //     let currentUrl = this.postsUrl + "/filter?" + filters;
-  //     let httpOptions = {
-  //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Authorization': Bearer ${token}}),
-  //     };
-  //     this.http.get<IPost[]>(currentUrl, httpOptions).subscribe((res) => {
-  //       this.localPostsArray = res;
-  //       this.postsSubject.next(res);
-  //     });
 }

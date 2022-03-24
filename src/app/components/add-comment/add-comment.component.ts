@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { IComment } from 'src/app/models/IComment';
 import { IPost } from 'src/app/models/IPost';
 import { ITag } from 'src/app/models/ITag';
@@ -15,6 +22,7 @@ import { PostService } from 'src/app/services/post.service';
 export class AddCommentComponent {
   @Output() commentEmitter = new EventEmitter<IPost>();
   @Input() postId?: number;
+  @ViewChild('dialogAlarm') dialogAlarm!: ElementRef;
 
   constructor(private postsService: PostService) {}
 
@@ -46,27 +54,20 @@ export class AddCommentComponent {
   }
 
   ValidationValues(): boolean {
-    // if (this.description == '') {
-    //   this.errorAlarm = 'Please, put a description!';
-    //   this.openDialog();
-    //   return false;
-    // } else if (this.hasWhiteSpace(this.tagsString)) {
-    //   this.errorAlarm = 'Please, put #Tags without spaces!';
-    //   this.openDialog();
-    //   return false;
-    // } else if (this.hasWhiteSpace(this.userTaggedPostString)) {
-    //   this.errorAlarm = 'Please, put "Tagged users" without spaces!';
-    //   this.openDialog();
-    //   return false;
-    // } else if (this.urlFile == null) {
-    //   this.errorAlarm = 'Please, choose a picture!';
-    //   this.openDialog();
-    //   return false;
-    // } else
-    return true;
+    if (this.commentString == '') {
+      this.errorAlarm = 'Please, put a comment first!';
+      this.openDialog();
+      return false;
+    } else if (this.hasWhiteSpace(this.tagsString)) {
+      this.errorAlarm = 'Please, put #Tags without spaces!';
+      this.openDialog();
+      return false;
+    } else if (this.hasWhiteSpace(this.userTaggedPostString)) {
+      this.errorAlarm = 'Please, put "Tagged users" without spaces!';
+      this.openDialog();
+      return false;
+    } else return true;
   }
-
-  closeDialog() {}
 
   splitTags(tagsString: string) {
     var splitted = tagsString.split(',');
@@ -85,5 +86,19 @@ export class AddCommentComponent {
       this.userTaggedComment[i].user.userName = splitted[i];
     }
     return this.userTaggedComment;
+  }
+
+  openDialog() {
+    this.dialogAlarm.nativeElement.classList.add('backdrop');
+    this.dialogAlarm.nativeElement.classList.remove('ref');
+  }
+
+  closeDialog() {
+    this.dialogAlarm.nativeElement.classList.remove('backdrop');
+    this.dialogAlarm.nativeElement.classList.add('ref');
+  }
+
+  hasWhiteSpace(s: string) {
+    return s.indexOf(' ') >= 0;
   }
 }

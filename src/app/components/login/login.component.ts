@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
       age: NaN,
       workPlace: '',
     };
+    console.log('Login');
 
     this.authService.login(user);
   }

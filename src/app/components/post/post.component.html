@@ -31,8 +31,8 @@
       <div class="post-element">
         #Tags:<input type="text" [(ngModel)]="newTags" />
       </div>
-      <div>
-        <button (click)="saveChanges()">Save Changes</button>
+      <div class="btn-place">
+        <button class="btn-style" (click)="saveChanges()">Save Changes</button>
       </div>
     </div>
 
@@ -86,7 +86,14 @@
   <div #dialogAlarm class="ref">
     <div class="alert-box">
       <div>{{ errorAlarm }}</div>
-      <div class="btn-container">
+
+      <div class="text-right" [ngClass]="{ ref: flag }">
+        <button type="button" class="button-27" (click)="closeDialog()">
+          X
+        </button>
+      </div>
+
+      <div class="ref" [ngClass]="{ 'btn-container': flag }">
         <button type="button" class="button-29" (click)="yesAnswer()">
           Yes
         </button>

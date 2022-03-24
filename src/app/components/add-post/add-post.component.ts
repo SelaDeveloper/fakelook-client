@@ -72,14 +72,12 @@ export class AddPostComponent implements OnInit {
       this.postEmitter.emit(post);
 
       this.description = '';
-      this.x_Position = 0;
-      this.y_Position = 0;
-      this.z_Position = 0;
       this.date = Date;
       this.likes = [];
       this.comments = [];
       this.tags = [];
       this.tagsString = '';
+      this.userTaggedPostString = '';
       this.userTaggedPost = [];
       this.urlFile = null;
       this.fileInput.nativeElement.value = '';
@@ -100,10 +98,10 @@ export class AddPostComponent implements OnInit {
       this.errorAlarm = 'Please, put "Tagged users" without spaces!';
       this.openDialog();
       return false;
-      // } else if (this.urlFile == null) {
-      //   this.errorAlarm = 'Please, choose a picture!';
-      //   this.openDialog();
-      //   return false;
+    } else if (this.urlFile == null) {
+      this.errorAlarm = 'Please, choose a picture!';
+      this.openDialog();
+      return false;
     } else return true;
   }
 
